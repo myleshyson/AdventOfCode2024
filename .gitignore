@@ -1,1 +1,15 @@
 *.txt
+build/
+cmake-build-debug/
+cmake-build-release/
+CMakeCache.txt
+*.o
+*.a
+*.so
+*.exe
+*.dll
+
+.idea/
+.vscode/
+*.sln
+*.vcxproj
