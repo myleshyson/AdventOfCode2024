@@ -2,7 +2,6 @@
 #include <regex>
 #include <iostream>
 
-
 int first() {
     std::ifstream file = get_input("3.txt");
     std::string line;
