@@ -16,7 +16,7 @@ struct ComplexCompare {
     }
 };
 
-bool inBounds(std::complex<double> point, const std::vector<std::string> &grid) {
+bool inBounds(const std::complex<double> &point, const std::vector<std::string> &grid) {
     if (grid.empty() || grid[0].empty()) return false;
     const int row = static_cast<int>(point.imag());
     const int col = static_cast<int>(point.real());
@@ -50,22 +50,17 @@ int main() {
                 std::complex<double> distance = point - otherPoint;
 
                 for (auto antinode : {point, otherPoint}) {
-                    std::complex<double> one = antinode;
-                    std::complex<double> two = antinode;
-                    bool firstPass = true;
+                    std::complex<double> one = antinode + distance;
+                    std::complex<double> two = antinode - distance;
+
+                    if (inBounds(one, grid) && one != point && one != otherPoint) answer[0].insert(one);
+                    if (inBounds(two, grid) && two != point && two != otherPoint) answer[0].insert(two);
 
                     while (inBounds(one, grid) || inBounds(two, grid)) {
-                        one = one + distance;
-                        two = two - distance;
-
-                        if (firstPass) {
-                            if (inBounds(one, grid) && one != point && one != otherPoint) answer[0].insert(one);
-                            if (inBounds(two, grid) && two != point && two != otherPoint) answer[0].insert(two);
-                            firstPass = false;
-                        }
-
                         if (inBounds(one, grid)) answer[1].insert(one);
                         if (inBounds(two, grid)) answer[1].insert(two);
+                        one = one + distance;
+                        two = two - distance;
                     }
                 }
             }
