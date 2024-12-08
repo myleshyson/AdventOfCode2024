@@ -4,7 +4,7 @@
 #include <map>
 #include <set>
 #include <complex>
-
+#include <ranges>
 #include "helpers.h"
 
 struct ComplexCompare {
@@ -24,7 +24,6 @@ bool inBounds(const std::complex<double> &point, const std::vector<std::string> 
     return row >= 0 && row < grid.size() && col >= 0 && col < grid[0].size();
 }
 
-
 int main() {
     std::ifstream file = get_input("8.txt");
     std::string line;
@@ -40,12 +39,11 @@ int main() {
         grid.push_back(line);
     }
 
-    std::set<std::complex<double>, ComplexCompare> seen;
     std::set<std::complex<double>, ComplexCompare> answer[2];
 
-    for (const auto &pair: antennaMap) {
-        for (auto point: pair.second) {
-            for (auto otherPoint: pair.second) {
+    for (const auto &points: antennaMap | std::views::values) {
+        for (auto point: points) {
+            for (auto otherPoint: points) {
                 if (point == otherPoint) continue;
                 std::complex<double> distance = point - otherPoint;
 
