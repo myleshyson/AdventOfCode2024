@@ -6,62 +6,49 @@
 
 #include "helpers.h"
 
+// credit to this new solution goes to
+// https://www.reddit.com/r/adventofcode/comments/1h8l3z5/comment/m0tv6di/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
+// originally I was using a graph and it was kinda slow.
+// going backwards and using math is way faster.
+
 typedef std::map<std::pair<long, int>, std::vector<std::pair<std::string, std::pair<long, int> > > > graph;
 
-bool dfs(const std::pair<long, int> &node, const graph &graph, const long long &target, long long currentValue = 0, const std::optional<std::string>& operand = std::nullopt) {
-    if (!operand) {
-        currentValue = node.first;
-    } else {
-        if (operand == "*") {
-            currentValue *= node.first;
-        }
-        if (operand == "+") {
-            currentValue += node.first;
-        }
-        if (operand == "||") {
-            currentValue = std::stoll(std::to_string(currentValue) + std::to_string(node.first));
-        }
-    }
-
-    if (graph.at(node).empty()) {
-        return currentValue == target;
-    }
-
-    for (const auto& neighbor: graph.at(node)) {
-        if (currentValue > target) {
-            continue;
-        }
-        if (dfs(neighbor.second, graph, target, currentValue, neighbor.first)) {
-            return true;
-        }
-    }
-
-    return false;
+template <typename T>
+int digits(T number) {
+    return static_cast<int>(log10(number)) + 1;
 }
 
-bool isValid(const std::vector<long> &numbers, const long long &target, std::vector<std::string> operators) {
-    graph graph;
-    std::pair<long, int> first;
+template <typename T>
+bool endsWith(long long target, const T number) {
+    const int d = digits(number);
+    target -= number;
 
-    for (int i = 0; i < numbers.size(); i++) {
-        if (i + 1 >= numbers.size()) {
-            std::vector<std::pair<std::string, std::pair<long, int> > > vec;
-            graph.insert_or_assign(std::make_pair(numbers[i], i), vec);
-            break;
-        };
-
-        for (auto &operand : operators) {
-            graph[std::make_pair(numbers[i], i)].emplace_back(operand, std::make_pair(numbers[i + 1], i + 1));
-        }
-
-        if (i == 0) {
-            first = std::make_pair(numbers[i], i);
-        }
-    }
-    return dfs(first, graph, target);
+    return target % static_cast<int>(pow(10, d)) == 0;
 }
 
-// 17: (*, 8), (+, 8)
+bool isValid(std::vector<int> &numbers, const long long &target, const bool checkConcat = false) {
+    std::vector head(numbers.begin(), numbers.begin() + static_cast<int>(numbers.size()) - 1);
+
+    const int number = numbers.back();
+
+    if (head.empty()) {
+        return number == target;
+    }
+
+    const long long mod = target % number;
+    long long quotient = target / number;
+
+    if (mod == 0 && isValid(head, quotient, checkConcat)) {
+        return true;
+    }
+
+    if (checkConcat && endsWith(target, number) && isValid(head, target / pow(10, digits(number)), checkConcat)) {
+        return true;
+    }
+
+    return isValid(head, target - number, checkConcat);
+}
+
 int main() {
     std::ifstream file = get_input("7.txt");
     std::string line;
@@ -75,17 +62,17 @@ int main() {
 
         std::stringstream ss(numbers);
         std::string number;
-        std::vector<long> numberVec;
+        std::vector<int> numberVec;
 
         while (getline(ss, number, ' ')) {
-            numberVec.push_back(stol(number));
+            numberVec.push_back(stoi(number));
         }
 
-        if (isValid(numberVec, equals, std::vector<std::string>{"+", "*"})) {
+        if (isValid(numberVec, equals)) {
             answer[0] += equals;
         }
 
-        if (isValid(numberVec, equals, std::vector<std::string>{"+", "*", "||"})) {
+        if (isValid(numberVec, equals, true)) {
             answer[1] += equals;
         }
     }
