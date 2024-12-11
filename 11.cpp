@@ -3,28 +3,24 @@
 #include <unordered_map>
 #include <unordered_set>
 #include <iostream>
-#include <iomanip>
 
 #include "helpers.h"
 
 double stoneCount(std::vector<double> stones, int blinks) {
     std::unordered_map<double, double> map;
-    std::unordered_set<double> currentStones;
 
     for (auto stone: stones) {
         map[stone] = 1;
-        currentStones.insert(stone);
     }
 
     for (int i = 0; i < blinks; i++) {
-        std::unordered_set<double> newStones;
-        std::unordered_map<double, double> initial = map;
+        std::unordered_map<double, double> newMap = map;
 
-        auto size = static_cast<long long>(currentStones.size());
-        auto setIterator = currentStones.begin();
+        auto size = static_cast<long long>(map.size());
+        auto setIterator = map.begin();
 
         for (auto j = 0; j < size; j++) {
-            double stone = *setIterator;
+            double stone = setIterator->first;
 
             if (map[stone] <= 0) {
                 ++setIterator;
@@ -34,45 +30,41 @@ double stoneCount(std::vector<double> stones, int blinks) {
             int digits = static_cast<int>(log10(stone)) + 1;
 
             if (stone == 0) {
-                if (!map.contains(1)) {
-                    map.insert_or_assign(1, 0);
+                if (!newMap.contains(1)) {
+                    newMap.insert_or_assign(1, 0);
                 }
-                map[1] += initial[0];
-                newStones.insert(1);
+
+                newMap[1] += map[0];
             } else if (digits % 2 == 0) {
                 std::string num = std::to_string(stone);
                 double firstHalf = std::stod(num.substr(0, digits / 2));
                 double secondHalf = std::stod(num.substr(digits / 2));
 
-                if (!map.contains(firstHalf)) {
-                    map.insert_or_assign(firstHalf, 0);
+                if (!newMap.contains(firstHalf)) {
+                    newMap.insert_or_assign(firstHalf, 0);
                 }
 
-                if (!map.contains(secondHalf)) {
-                    map.insert_or_assign(secondHalf, 0);
+                if (!newMap.contains(secondHalf)) {
+                    newMap.insert_or_assign(secondHalf, 0);
                 }
 
-                map[firstHalf] += initial[stone];
-                map[secondHalf] += initial[stone];
-
-                newStones.insert(firstHalf);
-                newStones.insert(secondHalf);
+                newMap[firstHalf] += map[stone];
+                newMap[secondHalf] += map[stone];
             } else {
                 double bigBoi = stone * 2024.0;
 
-                if (!map.contains(bigBoi)) {
-                    map.insert_or_assign(bigBoi, 0);
+                if (!newMap.contains(bigBoi)) {
+                    newMap.insert_or_assign(bigBoi, 0);
                 }
 
-                map[bigBoi] += initial[stone];
-                newStones.insert(bigBoi);
+                newMap[bigBoi] += map[stone];
             }
 
-            map[stone] -= initial[stone];
+            newMap[stone] -= map[stone];
 
             ++setIterator;
         }
-        currentStones = newStones;
+        map = newMap;
     }
 
    double answer = 0;
