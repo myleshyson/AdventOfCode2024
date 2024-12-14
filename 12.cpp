@@ -135,7 +135,7 @@ std::vector<long long> getCost(std::vector<std::vector<char>> &matrix) {
                 auto result = dfs(std::complex<double>(i, j), matrix[i][j], matrix, seen, perimeter, area);
                 answer[0] += result.area * result.perimeter;
 
-                for (auto point : area) {
+                for (auto point: area) {
                     for (auto direction: {NE, NW, SE, SW}) {
                         if (!area.contains(point + direction)) {
                             perimeter.insert(point + direction);
