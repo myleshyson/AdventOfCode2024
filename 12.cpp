@@ -154,7 +154,7 @@ std::vector<long long> getCost(std::vector<std::vector<char>> &matrix) {
 }
 
 int main() {
-    std::ifstream file = get_input("12.txt");
+    std::ifstream file = getInput("12.txt");
     std::string line;
     std::vector<std::vector<char>> matrix;
 

@@ -127,7 +127,7 @@ long long partTwo(std::vector<int> nums) {
 }
 
 int main() {
-    std::ifstream input = get_input("9.txt");
+    std::ifstream input = getInput("9.txt");
     const std::string line((std::istreambuf_iterator(input)), std::istreambuf_iterator<char>());
     std::vector<int> nums;
 

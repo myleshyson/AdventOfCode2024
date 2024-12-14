@@ -5,7 +5,7 @@
 
 int first() {
     int answer = 0;
-    std::ifstream file = get_input("4.txt");
+    std::ifstream file = getInput("4.txt");
     std::vector<std::vector<char>> input;
     std::map<std::pair<int, int>, std::vector<std::pair<int, int> > > graph;
     std::string line;
@@ -72,7 +72,7 @@ int first() {
 
 int second() {
     int answer = 0;
-    std::ifstream file = get_input("4.txt");
+    std::ifstream file = getInput("4.txt");
     std::vector<std::vector<char>> input;
     std::map<std::pair<int, int>, std::vector<std::pair<int, int> > > graph;
     std::string line;

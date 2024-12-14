@@ -10,7 +10,7 @@
 using namespace std;
 
 int first() {
-    ifstream infile = get_input("1.txt");
+    ifstream infile = getInput("1.txt");
     vector<int> left;
     vector<int> right;
 
@@ -33,7 +33,7 @@ int first() {
 }
 
 int second() {
-    ifstream infile = get_input("1.txt");
+    ifstream infile = getInput("1.txt");
     vector<int> left;
     vector<int> right;
     map<int, int> numMap;
