@@ -3,8 +3,22 @@
 #include "helpers.h"
 
 /**
- * All credit to this person. I'm just using this to learn more about how to work with linear algebra!
+ * px = a*ax + b*bx
+ * py = a*ay + b*by
  *
+ * [ ax bx ]
+ * [ ay by ]
+ *
+ * a = dx / d
+ * b = dy / d
+ *
+ * d = ax*by - bx*ay
+ * dx = px*by - bx*py
+ * dy = ax*py - px*ay
+ *
+ * tokens = 3*a + 1*b
+ *
+ * All credit to this person. I'm just using this to learn more about how to work with linear algebra!
  * @link https://github.com/PaigePalisade/AdventOfCode2024/blob/main/Solutions/day13part2.c
  * @param ax
  * @param ay
@@ -24,15 +38,14 @@ long long getTokens
     const long long py
 ) {
     long long tokens = 0;
-    const long long numeratorX = px * by - py * bx;
-    const long long denominatorX = ax * by - ay * bx;
+    const long long dx = px * by - py * bx;
+    const long long dy = py * ax - px * ay;
+    const long long d = ax * by - ay * bx;
 
-    const long long numeratorY = px * ay - py * ax;
-    const long long denominatorY = ay * bx - ax * by;
-
-    if (numeratorX % denominatorX == 0 && numeratorY % denominatorY == 0) {
-        const long long a = numeratorX / denominatorX;
-        const long long b = numeratorY / denominatorY;
+    // if dx/d or dy/d is a fraction, that means there's no integer solution.
+    if (dx % d == 0 && dy % d == 0) {
+        const long long a = dx / d;
+        const long long b = dy / d;
         tokens += 3 * a + b;
     }
 
