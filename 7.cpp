@@ -50,7 +50,7 @@ bool isValid(std::vector<int> &numbers, const long long &target, const bool chec
 }
 
 int main() {
-    std::ifstream file = getScan("7.txt");
+    std::ifstream file = getStream("7.txt");
     std::string line;
     long long answer[2] = {0, 0};
 

@@ -77,7 +77,7 @@ Result simulateRoute(position position, const content &content, std::optional<::
 }
 
 int main() {
-    std::ifstream file = getScan("6.txt");
+    std::ifstream file = getStream("6.txt");
     std::string line;
     content content;
     graph graph;

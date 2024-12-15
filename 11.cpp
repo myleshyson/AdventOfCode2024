@@ -36,8 +36,8 @@ long long countRecursive(long long stone, int blinks, std::map<std::pair<long lo
     return cache.at(key);
 }
 
-static void recursive(benchmark::State &state) {
-    std::ifstream file = getScan("11.txt");
+int main() {
+    std::ifstream file = getStream("11.txt");
     std::string line((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
     std::stringstream ss(line);
     std::string string;
@@ -50,14 +50,12 @@ static void recursive(benchmark::State &state) {
 
     long long answer[] = {0, 0};
 
-    for (auto _ : state) {
-        for (auto stone : stones) {
-            answer[0] += countRecursive(stone, 25, cache);
-            answer[1] += countRecursive(stone, 75, cache);
-        }
+    for (auto stone : stones) {
+        answer[0] += countRecursive(stone, 25, cache);
+        answer[1] += countRecursive(stone, 75, cache);
     }
+
+    std::println("{}", answer);
+    
+    return 0;
 }
-
-BENCHMARK(recursive);
-
-BENCHMARK_MAIN();

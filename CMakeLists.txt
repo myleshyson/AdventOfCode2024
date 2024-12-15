@@ -5,10 +5,8 @@ set(CMAKE_CXX_STANDARD 26)
 set(CMAKE_OSX_SYSROOT "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk")
 
 find_package(benchmark REQUIRED)
-find_package(Armadillo REQUIRED)
 
 include_directories(/usr/local/include)
-include_directories(${ARMADILLO_INCLUDE_DIRS})
 
 if(CMAKE_BUILD_TYPE STREQUAL "Release")
         message("Configuring for Release")
@@ -39,4 +37,3 @@ add_executable(question_15 15.cpp helpers.h helpers.cpp)
 
 target_link_libraries(question_11 benchmark::benchmark)
 target_link_libraries(question_12 benchmark::benchmark)
-target_link_libraries(question_13 ${ARMADILLO_LIBRARIES})

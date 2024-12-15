@@ -154,7 +154,7 @@ std::vector<long long> getCost(std::vector<std::vector<char>> &matrix) {
 }
 
 int main() {
-    std::ifstream file = getScan("12.txt");
+    std::ifstream file = getStream("12.txt");
     std::string line;
     std::vector<std::vector<char>> matrix;
 
