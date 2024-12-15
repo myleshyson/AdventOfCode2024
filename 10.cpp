@@ -41,7 +41,7 @@ int findRating(std::pair<int, int> node, std::map<std::pair<int, int>, std::vect
 }
 
 int main() {
-   std::ifstream file = getInput("10.txt");
+   std::ifstream file = getScan("10.txt");
    std::string line;
    std::vector<std::vector<int> > matrix;
    std::pair<int, int> directions[] = {

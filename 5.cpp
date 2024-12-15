@@ -27,7 +27,7 @@ int isValid(const std::vector<int> &pages, const std::map<int, std::vector<int>>
 }
 
 int first() {
-    std::ifstream input = getInput("5.txt");
+    std::ifstream input = getScan("5.txt");
     std::string line;
     std::map<int, std::vector<int> > graph;
     int answer = 0;
@@ -78,7 +78,7 @@ int first() {
 }
 
 int second() {
-    std::ifstream input = getInput("5.txt");
+    std::ifstream input = getScan("5.txt");
     std::string line;
     std::map<int, std::vector<int> > graph;
     int answer = 0;

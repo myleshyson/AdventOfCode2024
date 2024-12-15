@@ -37,7 +37,7 @@ long long countRecursive(long long stone, int blinks, std::map<std::pair<long lo
 }
 
 static void recursive(benchmark::State &state) {
-    std::ifstream file = getInput("11.txt");
+    std::ifstream file = getScan("11.txt");
     std::string line((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
     std::stringstream ss(line);
     std::string string;

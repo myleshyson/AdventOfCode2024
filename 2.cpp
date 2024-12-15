@@ -39,7 +39,7 @@ bool isSafe(const vector<int> &value) {
 }
 
 int first() {
-    ifstream file = getInput("2.txt");
+    ifstream file = getScan("2.txt");
     string line;
     int answer = 0;
 
@@ -60,7 +60,7 @@ int first() {
 }
 
 int second() {
-    ifstream file = getInput("2.txt");
+    ifstream file = getScan("2.txt");
     string line;
     int answer = 0;
 

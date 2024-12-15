@@ -25,7 +25,7 @@ bool inBounds(const std::complex<double> &point, const std::vector<std::string> 
 }
 
 int main() {
-    std::ifstream file = getInput("8.txt");
+    std::ifstream file = getScan("8.txt");
     std::string line;
     std::vector<std::string> grid;
     std::map<char, std::vector<std::complex<double>>> antennaMap;

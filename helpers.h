@@ -1,6 +1,6 @@
 #pragma once
 #include <fstream>
 
-std::ifstream getInput(const std::string &filename);
+std::ifstream getStream(const std::string &filename);
 
-FILE *getInput(const char *filename);
+FILE *getScan(const char *filename);

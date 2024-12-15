@@ -3,7 +3,7 @@
 #include <iostream>
 
 int first() {
-    std::ifstream file = getInput("3.txt");
+    std::ifstream file = getScan("3.txt");
     std::string line;
     int answer = 0;
 
@@ -25,7 +25,7 @@ int first() {
 }
 
 int second() {
-    std::ifstream file = getInput("3.txt");
+    std::ifstream file = getScan("3.txt");
     std::string line;
     int answer = 0;
     bool disabled = false;

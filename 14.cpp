@@ -7,7 +7,7 @@
 
 int partOne(int time) {
     const char *name = "14.txt";
-    FILE* file = getInput(name);
+    FILE* file = getScan(name);
 
     int width = 101;
     int height = 103;
@@ -41,7 +41,7 @@ int partOne(int time) {
 
 void print(int time) {
     const char *name = "14.txt";
-    FILE* file = getInput(name);
+    FILE* file = getScan(name);
 
     int width = 101;
     int height = 103;
